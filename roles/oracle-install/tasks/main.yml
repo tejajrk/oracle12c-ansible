@@ -17,12 +17,12 @@
   with_items: '{{ installer_archives }}'
 
 # ==> generate response file
-- name: Gerenerate the response file for software only installation
+- name: Generate the response file for software only installation
   template: src=db_install.rsp.j2 dest={{ installation_folder }}/db_install.rsp
 
 # ==> execute installation
 - name: Install Product
-  command: '{{ installation_folder}}/database/runInstaller -silent -ignorePrereq -ignoreSysPrereqs -waitforcompletion -responseFile {{ installation_folder }}/db_install.rsp'
+  command: '{{ installation_folder }}/database/runInstaller -silent -ignorePrereq -ignoreSysPrereqs -waitforcompletion -responseFile {{ installation_folder }}/db_install.rsp'
 
 # ==> execute Inventory command as root
 - name: Execute Inventoty root command

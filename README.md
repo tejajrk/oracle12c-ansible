@@ -14,7 +14,7 @@ vagrant up
 
 After a few minutes a virtual machine with Oracle Database will be ready for you without any further configuration. You can access the Enterprise Manager Express using sys/sysdba and “oracle” as password.
 
-https://oradb3.private:5500/em
+https://oradb.private:5500/em
 
 You can shutdown the virtual machine using:
 

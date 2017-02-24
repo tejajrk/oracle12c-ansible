@@ -1,9 +1,9 @@
-oracle_user: oracle
-oracle_install_group: oinstall
+oracle_user: 'oracle'
+oracle_install_group: 'oinstall'
 extra_groups:
   - dba
   - oper
-oracle_base: /oracle/app
+oracle_base: '/oracle/app'
 
 installer_archives:
   - 'linuxamd64_12102_database_1of2.zip'
@@ -15,24 +15,25 @@ oracle_edition: 'EE'
 oracle_dba_group: dba
 oracle_oper_group: oper
 oracle_database_type: 'GENERAL_PURPOSE'
-oracle_globalname: 'orcl.oradb3.private'
-oracle_sid: 'orcl'
-create_container_database: 'true'
-number_of_pdbs: '1'
-oracle_conf_as_container_db: 'true'
+oracle_globalname: 'orcl.oradb'
+oracle_sid: 'sasdb'
+create_container_database: 'false'
+number_of_pdbs: 0
+oracle_conf_as_container_db: 'false'
 pdb_prefix: 'db'
 oracle_pdb_name: 'db01'
 oracle_charset: 'AL32UTF8'
 oracle_memory_option: 'false'
+
 # memory target
-oracle_memory_mb: 1536
+oracle_memory_mb: 2048
 oracle_install_samples: 'true'
 oracle_management_option: 'DEFAULT'
 oracle_enable_recovery: 'true'
 oracle_storage_type: 'FILE_SYSTEM_STORAGE'
 oracle_dataloc: '{{ oracle_base }}/oradata'
 oracle_recoveryloc: '{{ oracle_base }}/recovery_area'
-oracle_decline_security_updates: 'yes'
+oracle_decline_security_updates: 'true'
 hugepages_nr: 578
 
 # Username of the host machine. We use it for restart the vagrant machine
