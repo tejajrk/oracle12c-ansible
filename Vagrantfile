@@ -28,7 +28,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "oracle-db.yml"
-    ansible.inventory_path = "./hosts"
+    ansible.inventory_path = "./inventory/hosts"
     ansible.limit = 'all'
   end
 end

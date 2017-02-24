@@ -26,7 +26,7 @@ oracle_charset: 'AL32UTF8'
 oracle_memory_option: 'false'
 
 # memory target
-oracle_memory_mb: 2048
+oracle_memory_mb: 2560
 oracle_install_samples: 'true'
 oracle_management_option: 'DEFAULT'
 oracle_enable_recovery: 'true'
