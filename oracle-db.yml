@@ -1,6 +1,6 @@
 ---
 - name: Configure Oracle Linux 7 with Oracle Database 12c
-  hosts: all
+  hosts: oradb
   sudo: true
   vars_files:
     - infra-vars.yml

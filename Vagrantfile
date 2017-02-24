@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "https://artifactory.company.com/vagrant/centos-7.2-x86_64.box"
+  config.vm.box = "boxcutter/centos73"
   # config.vm.box_download_ca_cert = "root_ca.crt"
   config.vm.box_check_update = false
 
@@ -16,7 +16,7 @@ Vagrant.configure(2) do |config|
 
   config.vbguest.auto_update = false
 
-  # config.ssh.insert_key = true
+  config.ssh.insert_key = true
   # config.vm.synced_folder "../data", "/vagrant_data"
 
   config.vm.provider "virtualbox" do |vb|
