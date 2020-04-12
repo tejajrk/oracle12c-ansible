@@ -10,8 +10,8 @@
 
 - name: copy binary
   copy:
-    src: "{{ item }}"
-    dest: "{{ installation_folder }}/ remote_src=yes"
+    src: "{{ remote_base }}/{{ item }}"
+    dest: "{{ installation_folder }}/"
     remote_src: yes
   with_items: '{{ installer_archives }}'
 
