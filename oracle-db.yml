@@ -9,4 +9,4 @@
   roles:
     - role: linux-oracle
     - role: oracle-install
-      sudo_user: '{{ oracle_user }}'
+      become_user: '{{ oracle_user }}'
