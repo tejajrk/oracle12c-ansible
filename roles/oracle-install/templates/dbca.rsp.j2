@@ -2,77 +2,26 @@
 ##                                                                          ##
 ##                            DBCA response file                            ##
 ##                            ------------------                            ##
-## Copyright   1998, 2014, Oracle Corporation. All Rights Reserved.         ##
+## Copyright(c) Oracle Corporation 1998,2017. All rights reserved.         ##
 ##                                                                          ##
-## Specify values for the variables listed below to customize Oracle        ##
-## Database Configuration installation.                                     ##
-##                                                                          ##
-## Each variable is associated with a comment. The comment identifies the   ##
-## variable type.                                                           ##
-##                                                                          ##
-## Please specify the values in the following format :                      ##
-##          Type       :  Example                                           ##
-##          String     :  "<value>"                                         ##
-##          Boolean    :  True or False                                     ##
-##          Number     :  <numeric value>                                   ##
-##          StringList :  {"<value1>","<value2>"}                           ##
-##                                                                          ##
-## Examples :                                                               ##
-##     1. dbca -progress_only -responseFile <response file>                 ##
-##        Display a progress bar depicting progress of database creation    ##
-##        process.                                                          ##
-##                                                                          ##
-##     2. dbca -silent -responseFile <response file>                        ##
-##        Creates database silently. No user interface is displayed.        ##
-##                                                                          ##
-##     3. dbca -silent -createDatabase -cloneTemplate                       ##
-##			 -responseFile <response file>                      ##
-##        Creates database silently with clone template. The template in    ##
-##	  responsefile is a clone template. 			            ##
-##                                                                          ##
-##     4. dbca -silent -deleteDatabase -responseFile <response file>        ##
-##        Deletes database silently.                                        ##
+## Specify values for the variables listed below to customize               ##
+## your installation.                                         		    ##
+##                                                            		    ##
+## Each variable is associated with a comment. The comment    		    ##
+## can help to populate the variables with the appropriate   		    ##
+## values.                                                  		    ##
+##                                                               	    ##
+## IMPORTANT NOTE: This file contains plain text passwords and   	    ##
+## should be secured to have read permission only by oracle user 	    ##
+## or db administrator who owns this installation.               	    ##
 ##############################################################################
 #-------------------------------------------------------------------------------
 # Do not change the following system generated value.
 #-------------------------------------------------------------------------------
 responseFileVersion=/oracle/assistants/rspfmt_dbca_response_schema_v12.2.0
 
-
 #-----------------------------------------------------------------------------
-# GENERAL section is required for all types of database creations.
-#-----------------------------------------------------------------------------
-[GENERAL]
-
-#-----------------------------------------------------------------------------
-# Name          : RESPONSEFILE_VERSION
-# Datatype      : String
-# Description   : Version of the database to create
-# Valid values  : "12.1.0"
-# Default value : None
-# Mandatory     : Yes
-#-----------------------------------------------------------------------------
-RESPONSEFILE_VERSION = "12.1.0"
-
-#-----------------------------------------------------------------------------
-# Name          : OPERATION_TYPE
-# Datatype      : String
-# Description   : Type of operation
-# Valid values  : "createDatabase" \ "createTemplateFromDB" \ "createCloneTemplate" \ "deleteDatabase" \ "configureDatabase" \ "addInstance" (RAC-only) \ "deleteInstance" (RAC-only) \ "createPluggableDatabase" \ "unplugDatabase" \ "deletePluggableDatabase" \ "configurePluggableDatabase"
-# Default value : None
-# Mandatory     : Yes
-#-----------------------------------------------------------------------------
-OPERATION_TYPE = "createDatabase"
-
-#-----------------------*** End of GENERAL section ***------------------------
-
-#-----------------------------------------------------------------------------
-# CREATEDATABASE section is used when OPERATION_TYPE is defined as "createDatabase". 
-#-----------------------------------------------------------------------------
-[CREATEDATABASE]
-
-#-----------------------------------------------------------------------------
-# Name          : GDBNAME
+# Name          : gdbName
 # Datatype      : String
 # Description   : Global database name of the database
 # Valid values  : <db_name>.<db_domain> - when database domain isn't NULL
@@ -80,7 +29,17 @@ OPERATION_TYPE = "createDatabase"
 # Default value : None
 # Mandatory     : Yes
 #-----------------------------------------------------------------------------
-GDBNAME = {{ oracle_globalname }}
+gdbName={{ oracle_globalname }}
+
+#-----------------------------------------------------------------------------
+# Name          : sid
+# Datatype      : String
+# Description   : System identifier (SID) of the database
+# Valid values  : Check Oracle12c Administrator's Guide
+# Default value : <db_name> specified in GDBNAME
+# Mandatory     : No
+#-----------------------------------------------------------------------------
+sid={{ oracle_sid }}
 
 #-----------------------------------------------------------------------------
 # Name          : DATABASECONFTYPE
@@ -90,7 +49,7 @@ GDBNAME = {{ oracle_globalname }}
 # Default value : SI
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-#DATABASECONFTYPE  = "SI"
+databaseConfigType="SI"
 
 #-----------------------------------------------------------------------------
 # Name          : RACONENODESERVICENAME
@@ -101,7 +60,7 @@ GDBNAME = {{ oracle_globalname }}
 # Default value : None
 # Mandatory     : No [required in case DATABASECONFTYPE is set to RACONENODE ]
 #-----------------------------------------------------------------------------
-RACOneNodeServiceName=
+#RACOneNodeServiceName=
 
 #-----------------------------------------------------------------------------
 # Name          : POLICYMANAGED
@@ -112,7 +71,7 @@ RACOneNodeServiceName=
 # Default value : FALSE
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-policyManaged=
+#policyManaged=
 
 #-----------------------------------------------------------------------------
 # Name          : CREATESERVERPOOL
@@ -125,7 +84,7 @@ policyManaged=
 # Default value : FALSE
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-createServerPool=
+#createServerPool=
 
 #-----------------------------------------------------------------------------
 # Name          : SERVERPOOLNAME
@@ -139,7 +98,7 @@ createServerPool=
 # Default value : None
 # Mandatory     : No [required in case of RAC service centric database]
 #-----------------------------------------------------------------------------
-serverPoolName=
+#serverPoolName=
 
 
 #-----------------------------------------------------------------------------
@@ -151,7 +110,7 @@ serverPoolName=
 # Default value : Number of qualified nodes on cluster
 # Mandatory     : No [Required when a new serverpool need to be created]
 #-----------------------------------------------------------------------------
-cardinality=
+#cardinality=
 
 
 
@@ -168,7 +127,7 @@ cardinality=
 # Default value : FALSE
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-force=
+#force=
 
 
 
@@ -184,7 +143,7 @@ force=
 # Default value : None
 # Mandatory     : No [required in case of RAC service centric database]
 #-----------------------------------------------------------------------------
-pqPoolName=
+#pqPoolName=
 
 #-----------------------------------------------------------------------------
 # Name          : PQCARDINALITY
@@ -195,20 +154,7 @@ pqPoolName=
 # Default value : Number of qualified nodes on cluster
 # Mandatory     : No [Required when a new serverpool need to be created]
 #-----------------------------------------------------------------------------
-pqCardinality=
-
-
-
-
-#-----------------------------------------------------------------------------
-# Name          : SID
-# Datatype      : String
-# Description   : System identifier (SID) of the database
-# Valid values  : Check Oracle12c Administrator's Guide
-# Default value : <db_name> specified in GDBNAME
-# Mandatory     : No
-#-----------------------------------------------------------------------------
-sid={{ oracle_sid }}
+#pqCardinality=
 
 #-----------------------------------------------------------------------------
 # Name          : CREATEASCONTAINERDATABASE 
@@ -239,7 +185,15 @@ numberOfPDBs={{ number_of_pdbs }}
 # Mandatory     : No
 #-----------------------------------------------------------------------------
 pdbName={{ pdb_prefix }}
-useLocalUndoForPDBs=
+#-----------------------------------------------------------------------------
+# Name          : useLocalUndoForPDBs
+# Datatype      : boolean
+# Description   : Flag to create local undo tablespace for all PDB's.
+# Valid values  : TRUE\FALSE
+# Default value : TRUE
+# Mandatory     : No
+#-----------------------------------------------------------------------------
+useLocalUndoForPDBs=true
 #-----------------------------------------------------------------------------
 # Name          : PDBADMINPASSWORD
 # Datatype      : String
@@ -258,7 +212,7 @@ pdbAdminPassword={{ oracle_pass_all_users }}
 # Default value : None
 # Mandatory     : No (Yes for RAC database-centric database )
 #-----------------------------------------------------------------------------
-nodelist=
+#nodelist=
 
 #-----------------------------------------------------------------------------
 # Name          : TEMPLATENAME
@@ -269,17 +223,6 @@ nodelist=
 # Mandatory     : Yes
 #-----------------------------------------------------------------------------
 templateName="General_Purpose.dbc"
-
-#-----------------------------------------------------------------------------
-# Name          : OBFUSCATEDPASSWORDS
-# Datatype      : Boolean
-# Description   : Set to true if passwords are encrypted
-# Valid values  : TRUE\FALSE
-# Default value : FALSE
-# Mandatory     : No
-#-----------------------------------------------------------------------------
-#OBFUSCATEDPASSWORDS = FALSE
-
 
 #-----------------------------------------------------------------------------
 # Name          : SYSPASSWORD
@@ -342,7 +285,7 @@ emExpressPort=5500
 # Default value : FALSE
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-runCVUChecks=
+runCVUChecks=false
 
 #-----------------------------------------------------------------------------
 # Name          : DBSNMPPASSWORD
@@ -371,7 +314,7 @@ omsHost=
 # Default value : None
 # Mandatory     : Yes, if CENTRAL is specified for EMCONFIGURATION
 #-----------------------------------------------------------------------------
-omsPort=
+omsPort=0
 
 #-----------------------------------------------------------------------------
 # Name          : EMUSER
@@ -400,7 +343,7 @@ emPassword=
 # Default value : False
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-dvConfiguration="True"
+dvConfiguration=false
 
 #-----------------------------------------------------------------------------
 # Name          : DVOWNERNAME
@@ -450,7 +393,7 @@ dvAccountManagerPassword={{ oracle_pass_all_users }}
 # Default value : False
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-olsConfiguration="false"
+olsConfiguration=false
 
 #-----------------------------------------------------------------------------
 # Name          : DATAFILEJARLOCATION 
@@ -460,7 +403,7 @@ olsConfiguration="false"
 # Default value : None
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-datafileJarLocation=
+datafileJarLocation={ORACLE_HOME}/assistants/dbca/templates/
 
 #-----------------------------------------------------------------------------
 # Name          : DATAFILEDESTINATION 
@@ -490,7 +433,7 @@ recoveryAreaDestination={{ oracle_recoveryloc }}
 # Default value : FS
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-storageType=
+storageType=FS
 
 #-----------------------------------------------------------------------------
 # Name          : DISKGROUPNAME
@@ -499,7 +442,7 @@ storageType=
 # Default value : DATA
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-diskGroupName=
+diskGroupName=DATA
 
 #-----------------------------------------------------------------------------
 # Name          : ASMSNMP_PASSWORD
@@ -517,7 +460,7 @@ asmsnmpPassword=
 # Default value : RECOVERY
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-recoveryGroupName=
+recoveryGroupName=RECOVERY
 
 
 #-----------------------------------------------------------------------------
@@ -548,7 +491,7 @@ nationalCharacterSet="UTF8"
 # Default value : FALSE
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-registerWithDirService=
+registerWithDirService=false
 
 #-----------------------------------------------------------------------------
 # Name          : DIRSERVICEUSERNAME
@@ -664,1087 +607,3 @@ automaticMemoryManagement="FALSE"
 # Mandatory     : NO
 #-----------------------------------------------------------------------------
 totalMemory={{ oracle_memory_mb }}
-
-
-#-----------------------*** End of CREATEDATABASE section ***------------------------
-
-#-----------------------------------------------------------------------------
-# createTemplateFromDB section is used when OPERATION_TYPE is defined as "createTemplateFromDB". 
-#-----------------------------------------------------------------------------
-[createTemplateFromDB]
-#-----------------------------------------------------------------------------
-# Name          : SOURCEDB 
-# Datatype      : String
-# Description   : The source database from which to create the template
-# Valid values  : The format is <host>:<port>:<sid>
-# Default value : none
-# Mandatory     : YES
-#-----------------------------------------------------------------------------
-SOURCEDB = "myhost:1521:orcl"
-
-#-----------------------------------------------------------------------------
-# Name          : SYSDBAUSERNAME 
-# Datatype      : String
-# Description   : A user with DBA role.
-# Default value : none
-# Mandatory     : YES
-#-----------------------------------------------------------------------------
-SYSDBAUSERNAME = "system"
-
-#-----------------------------------------------------------------------------
-# Name          : SYSDBAPASSWORD 
-# Datatype      : String
-# Description   : The password of the DBA user.
-#		  You can also specify the password at the command prompt instead of here.
-# Default value : none
-# Mandatory     : YES
-#-----------------------------------------------------------------------------
-#SYSDBAPASSWORD = "password"
-
-#-----------------------------------------------------------------------------
-# Name          : TEMPLATENAME
-# Datatype      : String
-# Description   : Name for the new template.
-# Default value : None
-# Mandatory     : Yes
-#-----------------------------------------------------------------------------
-TEMPLATENAME = "My Copy TEMPLATE"
-
-#-----------------------*** End of createTemplateFromDB section ***------------------------
-
-#-----------------------------------------------------------------------------
-# createCloneTemplate section is used when OPERATION_TYPE is defined as "createCloneTemplate". 
-#-----------------------------------------------------------------------------
-[createCloneTemplate]
-#-----------------------------------------------------------------------------
-# Name          : SOURCEDB
-# Datatype      : String
-# Description   : The source database is the SID from which to create the template. 
-#		  This database must be local and on the same ORACLE_HOME.
-# Default value : none
-# Mandatory     : YES
-#-----------------------------------------------------------------------------
-SOURCEDB = "orcl"
-
-#-----------------------------------------------------------------------------
-# Name          : SYSDBAUSERNAME
-# Datatype      : String
-# Description   : A user with DBA role.
-# Default value : none
-# Mandatory     : YES, if no OS authentication
-#-----------------------------------------------------------------------------
-#SYSDBAUSERNAME = "sys"
-
-#-----------------------------------------------------------------------------
-# Name          : SYSDBAPASSWORD
-# Datatype      : String
-# Description   : The password of the DBA user.
-#		  You can also specify the password at the command prompt instead of here.
-# Default value : none
-# Mandatory     : YES
-#-----------------------------------------------------------------------------
-#SYSDBAPASSWORD = "password"
-
-#-----------------------------------------------------------------------------
-# Name          : TEMPLATENAME
-# Datatype      : String
-# Description   : Name for the new template.
-# Default value : None
-# Mandatory     : Yes
-#-----------------------------------------------------------------------------
-TEMPLATENAME = "My Clone TEMPLATE"
-
-#-----------------------------------------------------------------------------
-# Name          : DATAFILEJARLOCATION
-# Datatype      : String
-# Description   : Location of the data file jar 
-# Valid values  : Directory where the new compressed datafile jar will be placed
-# Default value : $ORACLE_HOME/assistants/dbca/templates
-# Mandatory     : NO
-#-----------------------------------------------------------------------------
-#DATAFILEJARLOCATION = 
-
-#-----------------------*** End of createCloneTemplate section ***------------------------
-
-#-----------------------------------------------------------------------------
-# DELETEDATABASE section is used when DELETE_TYPE is defined as "deleteDatabase". 
-#-----------------------------------------------------------------------------
-[DELETEDATABASE]
-#-----------------------------------------------------------------------------
-# Name          : SOURCEDB
-# Datatype      : String
-# Description   : The source database is the SID 
-#		  This database must be local and on the same ORACLE_HOME.
-# Default value : none
-# Mandatory     : YES
-#-----------------------------------------------------------------------------
-SOURCEDB = "orcl"
-
-#-----------------------------------------------------------------------------
-# Name          : SYSDBAUSERNAME
-# Datatype      : String
-# Description   : A user with DBA role.
-# Default value : none
-# Mandatory     : YES, if no OS authentication
-#-----------------------------------------------------------------------------
-#SYSDBAUSERNAME = "sys"
-
-#-----------------------------------------------------------------------------
-# Name          : SYSDBAPASSWORD
-# Datatype      : String
-# Description   : The password of the DBA user.
-#		  You can also specify the password at the command prompt instead of here.
-# Default value : none
-# Mandatory     : YES, if no OS authentication
-#-----------------------------------------------------------------------------
-#SYSDBAPASSWORD = "password"
-#-----------------------*** End of deleteDatabase section ***------------------------
-
-#-----------------------------------------------------------------------------
-# GENERATESCRIPTS section 
-#-----------------------------------------------------------------------------
-[generateScripts]
-#-----------------------------------------------------------------------------
-# Name          : TEMPLATENAME
-# Datatype      : String
-# Description   : Name of the template
-# Valid values  : Template name as seen in DBCA
-# Default value : None
-# Mandatory     : Yes
-#-----------------------------------------------------------------------------
-TEMPLATENAME = "New Database"
-
-#-----------------------------------------------------------------------------
-# Name          : GDBNAME
-# Datatype      : String
-# Description   : Global database name of the database
-# Valid values  : <db_name>.<db_domain> - when database domain isn't NULL
-#                 <db_name>             - when database domain is NULL
-# Default value : None
-# Mandatory     : Yes
-#-----------------------------------------------------------------------------
-GDBNAME = "orcl12.us.oracle.com"
-
-#-----------------------------------------------------------------------------
-# Name          : SCRIPTDESTINATION 
-# Datatype      : String
-# Description   : Location of the scripts
-# Valid values  : Directory for all the scripts
-# Default value : None
-# Mandatory     : No
-#-----------------------------------------------------------------------------
-#SCRIPTDESTINATION =
-
-#-----------------------------------------------------------------------------
-# Name          : EMCONFIGURATION
-# Datatype      : String
-# Description   : Enterprise Manager Configuration Type
-# Valid values  : CENTRAL
-# Default value : NONE
-# Mandatory     : No
-#-----------------------------------------------------------------------------
-#EMCONFIGURATION = "NONE"
-
-
-#-----------------------------------------------------------------------------
-# Name          : OMSHOST
-# Datatype      : String
-# Description   : EM management server host name
-# Default value : None
-# Mandatory     : Yes, if CENTRAL is specified for EMCONFIGURATION
-#-----------------------------------------------------------------------------
-#OMSHOST = 
-
-#-----------------------------------------------------------------------------
-# Name          : OMSPORT
-# Datatype      : Number
-# Description   : EM management server port number
-# Default value : None
-# Mandatory     : Yes, if CENTRAL is specified for EMCONFIGURATION
-#-----------------------------------------------------------------------------
-#OMSPORT = 
-
-#-----------------------------------------------------------------------------
-# Name          : EMUSER
-# Datatype      : String
-# Description   : EM Admin username to add or modify targets
-# Default value : None
-# Mandatory     : Yes, if CENTRAL is specified for EMCONFIGURATION
-#-----------------------------------------------------------------------------
-#EMUSER = 
-
-#-----------------------------------------------------------------------------
-# Name          : EMPASSWORD
-# Datatype      : String
-# Description   : EM Admin user password
-# Default value : None
-# Mandatory     : Yes, if CENTRAL is specified for EMCONFIGURATION
-#-----------------------------------------------------------------------------
-#EMPASSWORD= 
-
-#-----------------------*** End of deleteDatabase section ***------------------------
-
-#-----------------------------------------------------------------------------
-# CONFIGUREDATABASE section is used when OPERATION_TYPE is defined as "configureDatabase". 
-#-----------------------------------------------------------------------------
-[CONFIGUREDATABASE]
-
-#-----------------------------------------------------------------------------
-# Name          : SOURCEDB
-# Datatype      : String
-# Description   : The source database is the SID 
-#		  This database must be local and on the same ORACLE_HOME.
-# Default value : none
-# Mandatory     : YES
-#-----------------------------------------------------------------------------
-#SOURCEDB = "orcl"
-
-#-----------------------------------------------------------------------------
-# Name          : SYSDBAUSERNAME
-# Datatype      : String
-# Description   : A user with DBA role.
-# Default value : none
-# Mandatory     : YES, if no OS authentication
-#-----------------------------------------------------------------------------
-#SYSDBAUSERNAME = "sys"
-
-
-#-----------------------------------------------------------------------------
-# Name          : SYSDBAPASSWORD
-# Datatype      : String
-# Description   : The password of the DBA user.
-#		  You can also specify the password at the command prompt instead of here.
-# Default value : none
-# Mandatory     : YES, if no OS authentication
-#-----------------------------------------------------------------------------
-#SYSDBAPASSWORD =
-
-#-----------------------------------------------------------------------------
-# Name          : REGISTERWITHDIRSERVICE
-# Datatype      : Boolean
-# Description   : Specifies whether to register with Directory Service.
-# Valid values  : TRUE \ FALSE
-# Default value : FALSE
-# Mandatory     : No
-#-----------------------------------------------------------------------------
-#REGISTERWITHDIRSERVICE= TRUE
-
-#-----------------------------------------------------------------------------
-# Name          : UNREGISTERWITHDIRSERVICE
-# Datatype      : Boolean
-# Description   : Specifies whether to unregister with Directory Service.
-# Valid values  : TRUE \ FALSE
-# Default value : FALSE
-# Mandatory     : No
-#-----------------------------------------------------------------------------
-#UNREGISTERWITHDIRSERVICE= TRUE
-
-#-----------------------------------------------------------------------------
-# Name          : REGENERATEDBPASSWORD
-# Datatype      : Boolean
-# Description   : Specifies whether regenerate database password in OID/Wallet
-# Valid values  : TRUE \ FALSE
-# Default value : FALSE
-# Mandatory     : No
-#-----------------------------------------------------------------------------
-#REGENERATEDBPASSWORD= TRUE
-
-#-----------------------------------------------------------------------------
-# Name          : DIRSERVICEUSERNAME
-# Datatype      : String
-# Description   : Specifies the name of the directory service user
-# Mandatory     : YES, if the any of the reg/unreg/regenPasswd options specified
-#-----------------------------------------------------------------------------
-#DIRSERVICEUSERNAME= "name"
-
-#-----------------------------------------------------------------------------
-# Name          : DIRSERVICEPASSWORD
-# Datatype      : String
-# Description   : The password of the directory service user.
-#		  You can also specify the password at the command prompt instead of here.
-# Mandatory     : YES, if the any of the reg/unreg/regenPasswd options specified
-#-----------------------------------------------------------------------------
-#DIRSERVICEPASSWORD= "password"
-
-#-----------------------------------------------------------------------------
-# Name          : WALLETPASSWORD
-# Datatype      : String
-# Description   : The password for wallet to created or modified.
-#		  You can also specify the password at the command prompt instead of here.
-# Mandatory     : YES, if the any of the reg/unreg/regenPasswd options specified
-#-----------------------------------------------------------------------------
-#WALLETPASSWORD= "password"
-
-
-#-----------------------------------------------------------------------------
-# Name          : ENABLESECURITYCONFIGURATION
-# Datatype      : String
-# Description   : Database Security Settings
-# Valid values  : true|false
-# Default value : true
-# Mandatory     : No
-#-----------------------------------------------------------------------------
-#ENABLESECURITYCONFIGURATION = "true"
-
-
-#-----------------------------------------------------------------------------
-# Name          : DBSNMPPASSWORD
-# Datatype      : String
-# Description   : Password for DBSNMP user
-# Valid values  : Check Oracle12c Administrator's Guide
-# Default value : None
-# Mandatory     : Yes, if EMCONFIGURATION is specified
-#-----------------------------------------------------------------------------
-#DBSNMPPASSWORD = "password"
-
-
-#-----------------------------------------------------------------------------
-# Name          : DVCONFIGURATION
-# Datatype      : Boolean
-# Description   : Specify "True" to configure and enable Oracle Database vault
-# Valid values  : True/False
-# Default value : False
-# Mandatory     : No
-#-----------------------------------------------------------------------------
-#DVCONFIGURATION = "false"
-
-#-----------------------------------------------------------------------------
-# Name          : DVOWNERNAME
-# Datatype      : String
-# Description   : DataVault Owner
-# Valid values  : Check Oracle12c Administrator's Guide
-# Default value : None
-# Mandatory     : Yes, if DataVault option is chosen
-#-----------------------------------------------------------------------------
-#DVOWNERNAME = ""
-
-#-----------------------------------------------------------------------------
-# Name          : DVOWNERPASSWORD
-# Datatype      : String
-# Description   : Password for DataVault Owner
-# Valid values  : Check Oracle12c Administrator's Guide
-# Default value : None
-# Mandatory     : Yes, if DataVault option is chosen
-#-----------------------------------------------------------------------------
-#DVOWNERPASSWORD = ""
-
-#-----------------------------------------------------------------------------
-# Name          : DVACCOUNTMANAGERNAME
-# Datatype      : String
-# Description   : DataVault Account Manager
-# Valid values  : Check Oracle12c Administrator's Guide
-# Default value : None
-# Mandatory     : No
-#-----------------------------------------------------------------------------
-#DVACCOUNTMANAGERNAME = ""
-
-#-----------------------------------------------------------------------------
-# Name          : DVACCOUNTMANAGERPASSWORD
-# Datatype      : String
-# Description   : Password for  DataVault Account Manager
-# Valid values  : Check Oracle12c Administrator's Guide
-# Default value : None
-# Mandatory     : No
-#-----------------------------------------------------------------------------
-#DVACCOUNTMANAGERPASSWORD = ""
-
-#-----------------------*** End of CONFIGUREDATABASE section ***------------------------
-
-
-#-----------------------------------------------------------------------------
-# ADDINSTANCE section is used when OPERATION_TYPE is defined as "addInstance". 
-#-----------------------------------------------------------------------------
-[ADDINSTANCE]
-
-#-----------------------------------------------------------------------------
-# Name          : DB_UNIQUE_NAME
-# Datatype      : String
-# Description   : DB Unique Name of the RAC database
-# Valid values  : <db_unique_name>
-# Default value : None
-# Mandatory     : Yes
-#-----------------------------------------------------------------------------
-DB_UNIQUE_NAME = "orcl12c.us.oracle.com"
-
-#-----------------------------------------------------------------------------
-# Name          : INSTANCENAME
-# Datatype      : String
-# Description   : RAC instance name to be added
-# Valid values  : Check Oracle12c Administrator's Guide
-# Default value : <sid_prefix>+<highest_current_thread+1>
-# Mandatory     : No
-#-----------------------------------------------------------------------------
-#INSTANCENAME = "orcl1"
-
-#-----------------------------------------------------------------------------
-# Name          : NODENAME
-# Datatype      : String
-# Description   : Node on which to add new instance 
-#                 (in 10gR2, instance addition is supported on 1 node at a time)
-# Valid values  : Cluster node name
-# Default value : None
-# Mandatory     : Yes
-#-----------------------------------------------------------------------------
-NODENAME=
-
-#-----------------------------------------------------------------------------
-# Name          : OBFUSCATEDPASSWORDS
-# Datatype      : Boolean
-# Description   : Set to true if passwords are encrypted
-# Valid values  : TRUE\FALSE
-# Default value : FALSE
-# Mandatory     : No
-#-----------------------------------------------------------------------------
-#OBFUSCATEDPASSWORDS = FALSE
-
-#-----------------------------------------------------------------------------
-# Name          : SYSDBAUSERNAME 
-# Datatype      : String
-# Description   : A user with DBA role.
-# Default value : none
-# Mandatory     : YES
-#-----------------------------------------------------------------------------
-SYSDBAUSERNAME = "sys"
-
-#-----------------------------------------------------------------------------
-# Name          : SYSDBAPASSWORD 
-# Datatype      : String
-# Description   : The password of the DBA user.
-# Default value : none
-# Mandatory     : YES
-#-----------------------------------------------------------------------------
-#SYSDBAPASSWORD = "password"
-
-#-----------------------------------------------------------------------------
-# Name          : SERVICEUSERPASSWORD
-# Datatype      : String
-# Description   : Password for Windows Service user
-# Default value : None
-# Mandatory     : If Oracle home is installed with windows service user
-#-----------------------------------------------------------------------------
-#SERVICEUSERPASSWORD = "password"
-
-#-----------------------*** End of ADDINSTANCE section ***------------------------
-
-
-#-----------------------------------------------------------------------------
-# DELETEINSTANCE section is used when OPERATION_TYPE is defined as "deleteInstance". 
-#-----------------------------------------------------------------------------
-[DELETEINSTANCE]
-
-#-----------------------------------------------------------------------------
-# Name          : DB_UNIQUE_NAME
-# Datatype      : String
-# Description   : DB Unique Name of the RAC database
-# Valid values  : <db_unique_name>
-# Default value : None
-# Mandatory     : Yes
-#-----------------------------------------------------------------------------
-DB_UNIQUE_NAME = "orcl12c.us.oracle.com"
-
-#-----------------------------------------------------------------------------
-# Name          : INSTANCENAME
-# Datatype      : String
-# Description   : RAC instance name to be deleted
-# Valid values  : Check Oracle12c Administrator's Guide
-# Default value : None
-# Mandatory     : Yes
-#-----------------------------------------------------------------------------
-INSTANCENAME = "orcl12c"
-
-#-----------------------------------------------------------------------------
-# Name          : NODENAME
-# Datatype      : String
-# Description   : Node on which instance to be deleted (SID) is located
-# Valid values  : Cluster node name
-# Default value : None
-# Mandatory     : No
-#-----------------------------------------------------------------------------
-#NODENAME=
-
-#-----------------------------------------------------------------------------
-# Name          : OBFUSCATEDPASSWORDS
-# Datatype      : Boolean
-# Description   : Set to true if passwords are encrypted
-# Valid values  : TRUE\FALSE
-# Default value : FALSE
-# Mandatory     : No
-#-----------------------------------------------------------------------------
-#OBFUSCATEDPASSWORDS = FALSE
-
-#-----------------------------------------------------------------------------
-# Name          : SYSDBAUSERNAME 
-# Datatype      : String
-# Description   : A user with DBA role.
-# Default value : none
-# Mandatory     : YES
-#-----------------------------------------------------------------------------
-SYSDBAUSERNAME = "sys"
-
-#-----------------------------------------------------------------------------
-# Name          : SYSDBAPASSWORD 
-# Datatype      : String
-# Description   : The password of the DBA user.
-# Default value : none
-# Mandatory     : YES
-#-----------------------------------------------------------------------------
-#SYSDBAPASSWORD = "password"
-
-
-#-----------------------*** End of DELETEINSTANCE section ***------------------------
-
-#----------------------------------------------------------------------------------
-# CREATEPLUGGABLEDATABASE section is used when OPERATION_TYPE is defined as "createPluggableDatabase". 
-#----------------------------------------------------------------------------------
-[CREATEPLUGGABLEDATABASE]
-#----------------------------------------------------------------------------------
-# Name          : SOURCEDB
-# Datatype      : String
-# Description   : The source database is the SID 
-#		  This database must be local and on the same ORACLE_HOME.
-# Default value : none
-# Mandatory     : YES
-#-----------------------------------------------------------------------------
-SOURCEDB = "orcl"
-
-#----------------------------------------------------------------------------------
-# Name          : PDBNAME
-# Datatype      : String
-# Description   : The name of new pluggable database 
-#		  This pdb name must not be same as sourcedb name.
-# Default value : none
-# Mandatory     : YES
-#-----------------------------------------------------------------------------
-PDBNAME = "PDB1"
-
-#----------------------------------------------------------------------------------
-# Name          : CREATEASCLONE
-# Datatype      : Boolean
-# Description   : specify true or false for PDB to be create as Clone.
-#               : When "true" is passed a new PDB GUID is generated for the plugged in PDB
-# Default value : true
-# Mandatory     : NO
-#-----------------------------------------------------------------------------
-# CREATEASCLONE = "TRUE"
-
-#----------------------------------------------------------------------------------
-
-#----------------------------------------------------------------------------------
-# Name          : CREATEPDBFROM
-# Datatype      : String
-# Description   : specify the source of pdb to be plugged
-# Valid values  : DEFAULT | FILEARCHIVE | RMANBACKUP | USINGXML
-# Default value : DEFAULT
-# Mandatory     : NO
-#-----------------------------------------------------------------------------
-# CREATEPDBFROM = "DEFAULT"
-
-#----------------------------------------------------------------------------------
-# Name          : PDBARCHIVEFILE
-# Datatype      : String
-# Description   : Full path and name for pdbArchive file
-# Default value : None
-# Mandatory     : Mandatory when creating new PDB using FILEARCHIVE
-#-----------------------------------------------------------------------------
-# PDBARCHIVEFILE = ""
-
-#----------------------------------------------------------------------------------
-# Name          : PDBBACKUPFILE
-# Datatype      : String
-# Description   : Full path and name for pdb back up file 
-# Default value : None
-# Mandatory     : Mandatory when creating new PDB using RMANBACKUP
-#-----------------------------------------------------------------------------
-# PDBBACKUPFILE = ""
-
-#----------------------------------------------------------------------------------
-# Name          : PDBMETADATAFILE
-# Datatype      : String
-# Description   : Full path and name for pdb metadata file
-# Default value : None
-# Mandatory     : Mandatory when creating new PDB using RMANBACKUP or USINGXML
-#-----------------------------------------------------------------------------
-# PDBMETADATAFILE = ""
-
-#----------------------------------------------------------------------------------
-# Name          : PDBUSEMULTIPLEBACKUP
-# Datatype      : boolean
-# Description   : Flag that can used to create PDB from single or multiple backupsets
-# Default value : true
-# Mandatory     : Optional when creating new PDB using RMANBACKUP or USINGXML
-#-----------------------------------------------------------------------------
-# PDBUSEMULTIPLEBACKUP =
-
-#----------------------------------------------------------------------------------
-# Name          : PDBADMINUSERNAME
-# Datatype      : String
-# Description   : PDB Administrator user name
-# Default value : None
-# Mandatory     : Mandatory only when creating new DEFAULT PDB
-#-----------------------------------------------------------------------------
-# PDBADMINUSERNAME = ""
-
-#----------------------------------------------------------------------------------
-# Name          : PDBADMINPASSWORD
-# Datatype      : String
-# Description   : PDB Administrator user password
-# Default value : None
-# Mandatory     : Mandatory only when creating new DEFAULT PDB
-#-----------------------------------------------------------------------------
-# PDBADMINPASSWORD = ""
-
-#----------------------------------------------------------------------------------
-# Name          : CREATENEWPDBADMINUSER
-# Datatype      : String
-# Description   : When Plugging a pdb from FILEARCHIVE or RMANBACKUP 
-#		  a new PDB Administrator user can be created using this option
-#		  This option should be given along with pdbadmin username and password
-# Default value : False
-# Mandatory     : NO
-#-----------------------------------------------------------------------------
-# CREATENEWPDBADMINUSER = ""
-
-#----------------------------------------------------------------------------------
-# Name          : SOURCEFILENAMECONVERT
-# Datatype      : String
-# Description   : This clause specifies how to locate files listed in an XML file 
-#		  describing a Pluggable Database if they reside in a location different 
-#		  from that specified in the XML file.
-#		  This clause is valid when creating Pluggable database in USINGXML option
-# Valid values  : (<filename_pattern>, <replacement_filename_pattern>,....)
-# Default value : "NONE"
-# Mandatory     : NO
-#-----------------------------------------------------------------------------
-# SOURCEFILENAMECONVERT = ""
-
-#----------------------------------------------------------------------------------
-# Name          : FILENAMECONVERT
-# Datatype      : String
-# Description   : This clause specifies how to generate names of files
-#		  for the Pluggable Database being created using names of existing files
-#		  This clause is valid when creating Pluggable database in USINGXML option
-# Valid values  : (<filename_pattern>, <replacement_filename_pattern>,....)
-# Default value : "NONE"
-# Mandatory     : NO
-#-----------------------------------------------------------------------------
-# FILENAMECONVERT = ""
-
-#----------------------------------------------------------------------------------
-# Name          : COPYPDBFILES
-# Datatype      : Boolean
-# Description   : If COPY is specified, it will indicate that datafiles need to be copied.
-#		: This option can be true only when FILENAMECONVERT is specified or
-#		   CDB files are Oracle Managed Files(OMF)
-# Valid values  : TRUE \ FALSE
-# Default value : False
-# Mandatory     : NO
-#-----------------------------------------------------------------------------
-# COPYPDBFILES = ""
-
-#----------------------------------------------------------------------------------
-# Name          : PDBDATAFILEDESTINATION
-# Datatype      : String
-# Description   : common location for PDB datafile area
-# Default value : None
-# Mandatory     : NO
-#-----------------------------------------------------------------------------
-# PDBDATAFILEDESTINATION = ""
-
-#----------------------------------------------------------------------------------
-# Name          : USEMETADATAFILELOCATION
-# Datatype      : Boolean
-# Description   : Specify true if datafile path defined in Meta datafile within PDB 
-#		  archive file is to be used to un-archive datafile.
-# Valid values  : TRUE \ FALSE
-# Default value : FALSE
-# Mandatory     : NO
-#-----------------------------------------------------------------------------
-# USEMETADATAFILELOCATION = ""
-
-#-----------------------------------------------------------------------------
-# Name          : REGISTERWITHDIRSERVICE
-# Datatype      : Boolean
-# Description   : Specifies whether to register with Directory Service.
-# Valid values  : TRUE \ FALSE
-# Default value : FALSE
-# Mandatory     : No
-#-----------------------------------------------------------------------------
-#REGISTERWITHDIRSERVICE= TRUE
-
-#-----------------------------------------------------------------------------
-# Name          : DIRSERVICEUSERNAME
-# Datatype      : String
-# Description   : Specifies the name of the directory service user
-# Mandatory     : YES, if the value of registerWithDirService is TRUE
-#-----------------------------------------------------------------------------
-#DIRSERVICEUSERNAME= "name"
-
-#-----------------------------------------------------------------------------
-# Name          : DIRSERVICEPASSWORD
-# Datatype      : String
-# Description   : The password of the directory service user.
-#		  You can also specify the password at the command prompt instead of here.
-# Mandatory     : YES, if the value of registerWithDirService is TRUE
-#-----------------------------------------------------------------------------
-#DIRSERVICEPASSWORD= "password"
-
-#-----------------------------------------------------------------------------
-# Name          : WALLETPASSWORD
-# Datatype      : String
-# Description   : The password for wallet to created or modified.
-#		  You can also specify the password at the command prompt instead of here.
-# Mandatory     : YES, if the value of registerWithDirService is TRUE
-#-----------------------------------------------------------------------------
-#WALLETPASSWORD= "password"
-
-#-----------------------------------------------------------------------------
-# Name          : LBACSYSPASSWORD
-# Datatype      : String
-# Description   : Password for LBACSYS user
-#		  You can also specify the password at the command prompt instead of here.
-# Mandatory     : YES, if the value of registerWithDirService are TRUE
-#-----------------------------------------------------------------------------
-#LBACSYSPASSWORD= "password"
-
-#----------------------------------------------------------------------------------
-# Name          : CREATEUSERTABLESPACE
-# Datatype      : Boolean
-# Description   : Specify true if a default user tablespace need to be created in new PDB
-#		  
-# Valid values  : TRUE \ FALSE
-# Default value : TRUE
-# Mandatory     : NO
-#-----------------------------------------------------------------------------
-# CREATEUSERTABLESPACE = ""
-
-#-----------------------------------------------------------------------------
-# Name          : DVCONFIGURATION
-# Datatype      : Boolean
-# Description   : Specify "True" to configure and enable Oracle Database vault
-# Valid values  : True/False
-# Default value : False
-# Mandatory     : No
-#-----------------------------------------------------------------------------
-#DVCONFIGURATION = "false"
-
-#-----------------------------------------------------------------------------
-# Name          : DVOWNERNAME
-# Datatype      : String
-# Description   : DataVault Owner
-# Valid values  : Check Oracle12c Administrator's Guide
-# Default value : None
-# Mandatory     : Yes, if DataVault option is chosen
-#-----------------------------------------------------------------------------
-#DVOWNERNAME = ""
-
-#-----------------------------------------------------------------------------
-# Name          : DVOWNERPASSWORD
-# Datatype      : String
-# Description   : Password for DataVault Owner
-# Valid values  : Check Oracle12c Administrator's Guide
-# Default value : None
-# Mandatory     : Yes, if DataVault option is chosen
-#-----------------------------------------------------------------------------
-#DVOWNERPASSWORD = ""
-
-#-----------------------------------------------------------------------------
-# Name          : DVACCOUNTMANAGERNAME
-# Datatype      : String
-# Description   : DataVault Account Manager
-# Valid values  : Check Oracle12c Administrator's Guide
-# Default value : None
-# Mandatory     : No
-#-----------------------------------------------------------------------------
-#DVACCOUNTMANAGERNAME = ""
-
-#-----------------------------------------------------------------------------
-# Name          : DVACCOUNTMANAGERPASSWORD
-# Datatype      : String
-# Description   : Password for  DataVault Account Manager
-# Valid values  : Check Oracle12c Administrator's Guide
-# Default value : None
-# Mandatory     : No
-#-----------------------------------------------------------------------------
-#DVACCOUNTMANAGERPASSWORD = ""
-
-#-----------------------*** End of createPluggableDatabase section ***------------------------
-
-#----------------------------------------------------------------------------------
-# UNPLUGDATABASE section is used when OPERATION_TYPE is defined as "unplugDatabase". 
-#----------------------------------------------------------------------------------
-[UNPLUGDATABASE]
-#----------------------------------------------------------------------------------
-# Name          : SOURCEDB
-# Datatype      : String
-# Description   : The source database is the SID 
-#		  This database must be local and on the same ORACLE_HOME.
-# Default value : none
-# Mandatory     : YES
-#-----------------------------------------------------------------------------
-SOURCEDB = "orcl"
-
-#----------------------------------------------------------------------------------
-# Name          : PDBNAME
-# Datatype      : String
-# Description   : The name of new pluggable database 
-#		  This pdb name must not be same as sourcedb name.
-# Default value : none
-# Mandatory     : YES
-#-----------------------------------------------------------------------------
-PDBNAME = "PDB1"
-
-#----------------------------------------------------------------------------------
-# Name          : ARCHIVETYPE
-# Datatype      : String
-# Description   : The unplugged database datafile backup will in tar.gz or rman backup
-#		  This pdb name must not be same as sourcedb name.
-# Valid values  : TAR | RMAN
-# Default value : TAR
-# Mandatory     : NO
-#-----------------------------------------------------------------------------
-ARCHIVETYPE = "TAR"
-
-#----------------------------------------------------------------------------------
-# Name          : PDBARCHIVEFILE
-# Datatype      : String
-# Description   : Full path and name for pdbArchive file
-# Default value : None
-# Mandatory     : NO
-#-----------------------------------------------------------------------------
-# PDBARCHIVEFILE = ""
-
-#----------------------------------------------------------------------------------
-# Name          : PDBBACKUPFILE
-# Datatype      : String
-# Description   : Full path and name for pdb back up file 
-# Default value : None
-# Mandatory     : No
-#-----------------------------------------------------------------------------
-# PDBBACKUPFILE = ""
-
-#----------------------------------------------------------------------------------
-# Name          : PDBMETADATAFILE
-# Datatype      : String
-# Description   : Full path and name for pdb metadata file
-# Default value : None
-# Mandatory     : No
-#-----------------------------------------------------------------------------
-# PDBMETADATAFILE = ""
-
-#-----------------------------------------------------------------------------
-# Name          : UNREGISTERWITHDIRSERVICE
-# Datatype      : Boolean
-# Description   : Specifies whether to unregister with Directory Service.
-# Valid values  : TRUE \ FALSE
-# Default value : FALSE
-# Mandatory     : No
-#-----------------------------------------------------------------------------
-#UNREGISTERWITHDIRSERVICE= TRUE
-
-#-----------------------------------------------------------------------------
-# Name          : DIRSERVICEUSERNAME
-# Datatype      : String
-# Description   : Specifies the name of the directory service user
-# Mandatory     : YES, if the value of unregisterWithDirService is TRUE
-#-----------------------------------------------------------------------------
-#DIRSERVICEUSERNAME= "name"
-
-#-----------------------------------------------------------------------------
-# Name          : DIRSERVICEPASSWORD
-# Datatype      : String
-# Description   : The password of the directory service user.
-#		  You can also specify the password at the command prompt instead of here.
-# Mandatory     : YES, if the value of unregisterWithDirService is TRUE
-#-----------------------------------------------------------------------------
-#DIRSERVICEPASSWORD= "password"
-
-#-----------------------------------------------------------------------------
-# Name          : WALLETPASSWORD
-# Datatype      : String
-# Description   : The password for wallet to created or modified.
-#		  You can also specify the password at the command prompt instead of here.
-# Mandatory     : YES, if the value of unregisterWithDirService is TRUE
-#-----------------------------------------------------------------------------
-#WALLETPASSWORD= "password"
-
-#-----------------------*** End of unplugDatabase section ***------------------------
-
-#----------------------------------------------------------------------------------
-# DELETEPLUGGABLEDATABASE section is used when OPERATION_TYPE is defined as "deletePluggableDatabase". 
-#----------------------------------------------------------------------------------
-[DELETEPLUGGABLEDATABASE]
-#----------------------------------------------------------------------------------
-# Name          : SOURCEDB
-# Datatype      : String
-# Description   : The source database is the SID 
-#		  This database must be local and on the same ORACLE_HOME.
-# Default value : none
-# Mandatory     : YES
-#-----------------------------------------------------------------------------
-SOURCEDB = "orcl"
-
-#----------------------------------------------------------------------------------
-# Name          : PDBNAME
-# Datatype      : String
-# Description   : The name of new pluggable database 
-#		  This pdb name must not be same as sourcedb name.
-# Default value : none
-# Mandatory     : YES
-#-----------------------------------------------------------------------------
-PDBNAME = "PDB1"
-
-#-----------------------*** End of deletePluggableDatabase section ***------------------------
-
-#----------------------------------------------------------------------------------
-# CONFIGUREPLUGGABLEDATABASE section is used when OPERATION_TYPE is defined as "configurePluggableDatabase". 
-#----------------------------------------------------------------------------------
-[CONFIGUREPLUGGABLEDATABASE]
-#----------------------------------------------------------------------------------
-# Name          : SOURCEDB
-# Datatype      : String
-# Description   : The source database is the SID 
-#		  This database must be local and on the same ORACLE_HOME.
-# Default value : none
-# Mandatory     : YES
-#-----------------------------------------------------------------------------
-SOURCEDB = "orcl"
-
-#----------------------------------------------------------------------------------
-# Name          : PDBNAME
-# Datatype      : String
-# Description   : The name of new pluggable database 
-#		  This pdb name must not be same as sourcedb name.
-# Default value : none
-# Mandatory     : YES
-#-----------------------------------------------------------------------------
-PDBNAME = "PDB1"
-
-#-----------------------------------------------------------------------------
-# Name          : DVCONFIGURATION
-# Datatype      : Boolean
-# Description   : Specify "True" to configure and enable Oracle Database vault
-# Valid values  : True/False
-# Default value : False
-# Mandatory     : No
-#-----------------------------------------------------------------------------
-#DVCONFIGURATION = "false"
-
-#-----------------------------------------------------------------------------
-# Name          : DVOWNERNAME
-# Datatype      : String
-# Description   : DataVault Owner
-# Valid values  : Check Oracle12c Administrator's Guide
-# Default value : None
-# Mandatory     : Yes, if DataVault option is chosen
-#-----------------------------------------------------------------------------
-#DVOWNERNAME = ""
-
-#-----------------------------------------------------------------------------
-# Name          : DVOWNERPASSWORD
-# Datatype      : String
-# Description   : Password for DataVault Owner
-# Valid values  : Check Oracle12c Administrator's Guide
-# Default value : None
-# Mandatory     : Yes, if DataVault option is chosen
-#-----------------------------------------------------------------------------
-#DVOWNERPASSWORD = ""
-
-#-----------------------------------------------------------------------------
-# Name          : DVACCOUNTMANAGERNAME
-# Datatype      : String
-# Description   : DataVault Account Manager
-# Valid values  : Check Oracle12c Administrator's Guide
-# Default value : None
-# Mandatory     : No
-#-----------------------------------------------------------------------------
-#DVACCOUNTMANAGERNAME = ""
-
-#-----------------------------------------------------------------------------
-# Name          : DVACCOUNTMANAGERPASSWORD
-# Datatype      : String
-# Description   : Password for  DataVault Account Manager
-# Valid values  : Check Oracle12c Administrator's Guide
-# Default value : None
-# Mandatory     : No
-#-----------------------------------------------------------------------------
-#DVACCOUNTMANAGERPASSWORD = ""
-
-#-----------------------------------------------------------------------------
-# Name          : OLSCONFIGURATION
-# Datatype      : Boolean
-# Description   : Specify "True" to configure and enable Oracle Label Security
-# Valid values  : True/False
-# Default value : False
-# Mandatory     : No
-#-----------------------------------------------------------------------------
-#OLSCONFIGURATION = "false"
-
-#-----------------------------------------------------------------------------
-# Name          : REGISTERWITHDIRSERVICE
-# Datatype      : Boolean
-# Description   : Specifies whether to register with Directory Service.
-# Valid values  : TRUE \ FALSE
-# Default value : FALSE
-# Mandatory     : No
-#-----------------------------------------------------------------------------
-#REGISTERWITHDIRSERVICE= TRUE
-
-#-----------------------------------------------------------------------------
-# Name          : DIRSERVICEUSERNAME
-# Datatype      : String
-# Description   : Specifies the name of the directory service user
-# Mandatory     : YES, if the value of registerWithDirService is TRUE
-#-----------------------------------------------------------------------------
-#DIRSERVICEUSERNAME= "name"
-
-#-----------------------------------------------------------------------------
-# Name          : DIRSERVICEPASSWORD
-# Datatype      : String
-# Description   : The password of the directory service user.
-#		  You can also specify the password at the command prompt instead of here.
-# Mandatory     : YES, if the value of registerWithDirService is TRUE
-#-----------------------------------------------------------------------------
-#DIRSERVICEPASSWORD= "password"
-
-#-----------------------------------------------------------------------------
-# Name          : WALLETPASSWORD
-# Datatype      : String
-# Description   : The password for wallet to created or modified.
-#		  You can also specify the password at the command prompt instead of here.
-# Mandatory     : YES, if the value of registerWithDirService is TRUE
-#-----------------------------------------------------------------------------
-#WALLETPASSWORD= "password"
-
-#-----------------------------------------------------------------------------
-# Name          : LBACSYSPASSWORD
-# Datatype      : String
-# Description   : Password for LBACSYS user
-#		  You can also specify the password at the command prompt instead of here.
-# Mandatory     : YES, if the value of olsConfiguration and registerWithDirService are TRUE
-#-----------------------------------------------------------------------------
-#LBACSYSPASSWORD= "password"
-
-
-#-----------------------------------------------------------------------------
-# Name          : EMCONFIGURATION
-# Datatype      : String
-# Description   : Enterprise Manager Configuration Type
-# Valid values  : DBEXPRESS|NONE
-# Default value : NONE
-# Mandatory     : No
-#-----------------------------------------------------------------------------
-#EMCONFIGURATION = "NONE"
-
-
-#-----------------------------------------------------------------------------
-# Name          : EMEXPRESSPORT
-# Datatype      : Number
-# Description   : Enterprise Manager Configuration Type
-# Valid values  : Check Oracle12c Administrator's Guide
-# Default value : NONE
-# Mandatory     : No, will be picked up from DBEXPRESS_HTTPS_PORT env variable
-#                 or auto generates a free port between 5500 and 5599
-#-----------------------------------------------------------------------------
-#EMEXPRESSPORT = ""
-
-#-----------------------*** End of configurePluggableDatabase section ***------------------------
