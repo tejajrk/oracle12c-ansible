@@ -26,7 +26,7 @@
 
 - name: Extract installation files
   unarchive:
-    src: "{{ installation_folder }}/{{ item }}"
+    src: "{{ remote_base }}/{{ item }}"
     dest: "{{ installation_folder }}/"
     creates: "{{ installation_folder }}/database"
     remote_src: yes
