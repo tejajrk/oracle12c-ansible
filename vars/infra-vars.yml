@@ -6,7 +6,7 @@ extra_groups:
 oracle_base: '/oracle/app'
 
 installer_archives:
-  - 'linuxx64_12201_database.zip'
+  - '/sw/oracle/linuxx64_12201_database.zip'
 
 oracle_install_version: '12201'
 dbhome_name: 'dbhome_1'
