@@ -29,6 +29,7 @@
     src: "{{ installation_folder }}/{{ item }}"
     dest: "{{ installation_folder }}/"
     creates: "{{ installation_folder }}/database"
+    remote_src: yes
   with_items: '{{ installer_archives }}'
 # ==> generate response file
 - name: Generate the response file for software only installation
