@@ -12,8 +12,8 @@ installer_archives:
 oracle_install_version: '12201'
 dbhome_name: 'dbhome_1'
 oracle_edition: 'SE2'
-oracle_dba_group: dba
-oracle_oper_group: oper
+oracle_dba_group: 'dba'
+oracle_oper_group: 'oper'
 oracle_database_type: 'GENERAL_PURPOSE'
 oracle_globalname: 'orcl.oradb'
 oracle_sid: 'orcl'

@@ -120,7 +120,7 @@ oracle.install.db.InstallEdition={{ oracle_edition }}
 
 #------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
-oracle.install.db.DBA_GROUP={{ oracle_install_group }}
+oracle.install.db.DBA_GROUP={{ oracle_dba_group }}
 
 #------------------------------------------------------------------------------
 # The OPER_GROUP is the OS group which is to be granted OSOPER privileges.
@@ -131,22 +131,22 @@ oracle.install.db.OPER_GROUP={{ oracle_oper_group }}
 #------------------------------------------------------------------------------
 # The OSBACKUPDBA_GROUP is the OS group which is to be granted SYSBACKUP privileges.
 #------------------------------------------------------------------------------
-oracle.install.db.OSBACKUPDBA_GROUP={{ oracle_install_group }}
+oracle.install.db.OSBACKUPDBA_GROUP={{ oracle_dba_group }}
 
 #------------------------------------------------------------------------------
 # The OSDGDBA_GROUP is the OS group which is to be granted SYSDG privileges.
 #------------------------------------------------------------------------------
-oracle.install.db.OSDGDBA_GROUP=={{ oracle_install_group }}
+oracle.install.db.OSDGDBA_GROUP={{ oracle_dba_group }}
 
 #------------------------------------------------------------------------------
 # The OSKMDBA_GROUP is the OS group which is to be granted SYSKM privileges.
 #------------------------------------------------------------------------------
-oracle.install.db.OSKMDBA_GROUP={{ oracle_install_group }}
+oracle.install.db.OSKMDBA_GROUP={{ oracle_dba_group }}
 
 #------------------------------------------------------------------------------
 # The OSRACDBA_GROUP is the OS group which is to be granted SYSRAC privileges.
 #------------------------------------------------------------------------------
-oracle.install.db.OSRACDBA_GROUP={{ oracle_install_group }}
+oracle.install.db.OSRACDBA_GROUP={{ oracle_dba_group }}
 
 ###############################################################################
 #                                                                             #
@@ -477,6 +477,6 @@ PROXY_PWD=
 COLLECTOR_SUPPORTHUB_URL=
 
 
-oracle.install.db.BACKUPDBA_GROUP=oinstall
-oracle.install.db.DGDBA_GROUP=oinstall
-oracle.install.db.KMDBA_GROUP=oinstall
+oracle.install.db.BACKUPDBA_GROUP={{ oracle_dba_group }}
+oracle.install.db.DGDBA_GROUP={{ oracle_dba_group }}
+oracle.install.db.KMDBA_GROUP={{ oracle_dba_group }}
