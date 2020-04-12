@@ -69,7 +69,7 @@
   template: src=dbca.rsp.j2 dest={{ installation_folder }}/dbca.rsp
 
 - name: create database
-  command: '{{ oracle_home }}/bin/dbca -silent -responseFile {{ installation_folder }}/dbca.rsp'
+  command: '{{ oracle_home }}/bin/dbca -responseFile {{ installation_folder }}/dbca.rsp -silent'
 
 - name: create oracle home variable
   lineinfile: dest='/home/{{ oracle_user }}/.bashrc' line='export ORACLE_HOME={{ oracle_home }}'
