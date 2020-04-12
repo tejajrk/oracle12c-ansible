@@ -55,7 +55,8 @@
   template: src=netca.rsp.j2 dest={{ installation_folder }}/netca.rsp
 
 - name: Create listener using netca
-  command: '{{ oracle_home }}/bin/netca -silent -responseFile {{ installation_folder }}/netca.rsp'
+  command: '{{ oracle_home }}/bin/netca -responseFile {{ installation_folder }}/netca.rsp -silent'
+  tags: listener_install
 
 - name: copy response file for dbca
   template: src=dbca.rsp.j2 dest={{ installation_folder }}/dbca.rsp
