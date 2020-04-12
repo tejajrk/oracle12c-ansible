@@ -7,7 +7,7 @@ oracle_base: '/oracle/app'
 
 remote_base: '/sw/oracle'
 installer_archives:
-  - linuxx64_12201_database.zip'
+  - linuxx64_12201_database.zip
 
 oracle_install_version: '12201'
 dbhome_name: 'dbhome_1'
