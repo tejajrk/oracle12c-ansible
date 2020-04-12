@@ -6,10 +6,9 @@ extra_groups:
 oracle_base: '/oracle/app'
 
 installer_archives:
-  - 'linuxamd64_12102_database_1of2.zip'
-  - 'linuxamd64_12102_database_2of2.zip'
+  - 'linuxx64_12201_database.zip'
 
-oracle_install_version: '12102'
+oracle_install_version: '12201'
 dbhome_name: 'dbhome_1'
 oracle_edition: 'EE'
 oracle_dba_group: dba
