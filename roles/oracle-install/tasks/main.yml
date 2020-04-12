@@ -8,12 +8,12 @@
   file: state=directory path={{ installation_folder }}
 # ==> Copy installer files
 
-- name: copy binary
-  copy:
-    src: "{{ remote_base }}/{{ item }}"
-    dest: "{{ installation_folder }}/"
-    remote_src: yes
-  with_items: '{{ installer_archives }}'
+# - name: copy binary
+#   copy:
+#     src: "{{ remote_base }}/{{ item }}"
+#     dest: "{{ installation_folder }}/"
+#     remote_src: yes
+#   with_items: '{{ installer_archives }}'
 
 # - name: Copy installer files
 #   copy: src={{ item }} dest='{{ installation_folder }}/ remote_src=yes'
