@@ -33,6 +33,11 @@
 ##     4. dbca -silent -deleteDatabase -responseFile <response file>        ##
 ##        Deletes database silently.                                        ##
 ##############################################################################
+#-------------------------------------------------------------------------------
+# Do not change the following system generated value.
+#-------------------------------------------------------------------------------
+responseFileVersion=/oracle/assistants/rspfmt_dbca_response_schema_v12.2.0
+
 
 #-----------------------------------------------------------------------------
 # GENERAL section is required for all types of database creations.
@@ -96,7 +101,7 @@ GDBNAME = {{ oracle_globalname }}
 # Default value : None
 # Mandatory     : No [required in case DATABASECONFTYPE is set to RACONENODE ]
 #-----------------------------------------------------------------------------
-#RACONENODESERVICENAME = 
+RACOneNodeServiceName=
 
 #-----------------------------------------------------------------------------
 # Name          : POLICYMANAGED
@@ -107,7 +112,7 @@ GDBNAME = {{ oracle_globalname }}
 # Default value : FALSE
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-#POLICYMANAGED = "false"
+policyManaged=
 
 #-----------------------------------------------------------------------------
 # Name          : CREATESERVERPOOL
@@ -120,7 +125,7 @@ GDBNAME = {{ oracle_globalname }}
 # Default value : FALSE
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-#CREATESERVERPOOL = "false"
+createServerPool=
 
 #-----------------------------------------------------------------------------
 # Name          : SERVERPOOLNAME
@@ -134,7 +139,8 @@ GDBNAME = {{ oracle_globalname }}
 # Default value : None
 # Mandatory     : No [required in case of RAC service centric database]
 #-----------------------------------------------------------------------------
-#SERVERPOOLNAME = 
+serverPoolName=
+
 
 #-----------------------------------------------------------------------------
 # Name          : CARDINALITY
@@ -145,7 +151,7 @@ GDBNAME = {{ oracle_globalname }}
 # Default value : Number of qualified nodes on cluster
 # Mandatory     : No [Required when a new serverpool need to be created]
 #-----------------------------------------------------------------------------
-#CARDINALITY = 
+cardinality=
 
 
 
@@ -162,7 +168,7 @@ GDBNAME = {{ oracle_globalname }}
 # Default value : FALSE
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-#FORCE = "false"
+force=
 
 
 
@@ -178,7 +184,7 @@ GDBNAME = {{ oracle_globalname }}
 # Default value : None
 # Mandatory     : No [required in case of RAC service centric database]
 #-----------------------------------------------------------------------------
-#PQPOOLNAME = 
+pqPoolName=
 
 #-----------------------------------------------------------------------------
 # Name          : PQCARDINALITY
@@ -189,7 +195,7 @@ GDBNAME = {{ oracle_globalname }}
 # Default value : Number of qualified nodes on cluster
 # Mandatory     : No [Required when a new serverpool need to be created]
 #-----------------------------------------------------------------------------
-#PQCARDINALITY = 
+pqCardinality=
 
 
 
@@ -202,7 +208,7 @@ GDBNAME = {{ oracle_globalname }}
 # Default value : <db_name> specified in GDBNAME
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-SID = {{ oracle_sid }}
+sid={{ oracle_sid }}
 
 #-----------------------------------------------------------------------------
 # Name          : CREATEASCONTAINERDATABASE 
@@ -212,7 +218,7 @@ SID = {{ oracle_sid }}
 # Default value : false
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-CREATEASCONTAINERDATABASE = {{ create_container_database }}
+createAsContainerDatabase={{ create_container_database }}
 
 #-----------------------------------------------------------------------------
 # Name          : NUMBEROFPDBS
@@ -222,7 +228,7 @@ CREATEASCONTAINERDATABASE = {{ create_container_database }}
 # Default value : 0
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-NUMBEROFPDBS = {{ number_of_pdbs }}
+numberOfPDBs={{ number_of_pdbs }}
 
 #-----------------------------------------------------------------------------
 # Name          : PDBNAME 
@@ -232,8 +238,8 @@ NUMBEROFPDBS = {{ number_of_pdbs }}
 # Default value : None
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-PDBNAME = {{ pdb_prefix }}
-
+pdbName={{ pdb_prefix }}
+useLocalUndoForPDBs=
 #-----------------------------------------------------------------------------
 # Name          : PDBADMINPASSWORD
 # Datatype      : String
@@ -242,7 +248,7 @@ PDBNAME = {{ pdb_prefix }}
 # Default value : None
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-PDBADMINPASSWORD = {{ oracle_pass_all_users }}
+pdbAdminPassword={{ oracle_pass_all_users }}
 
 #-----------------------------------------------------------------------------
 # Name          : NODELIST
@@ -252,7 +258,7 @@ PDBADMINPASSWORD = {{ oracle_pass_all_users }}
 # Default value : None
 # Mandatory     : No (Yes for RAC database-centric database )
 #-----------------------------------------------------------------------------
-#NODELIST=
+nodelist=
 
 #-----------------------------------------------------------------------------
 # Name          : TEMPLATENAME
@@ -262,7 +268,7 @@ PDBADMINPASSWORD = {{ oracle_pass_all_users }}
 # Default value : None
 # Mandatory     : Yes
 #-----------------------------------------------------------------------------
-TEMPLATENAME = "General_Purpose.dbc"
+templateName="General_Purpose.dbc"
 
 #-----------------------------------------------------------------------------
 # Name          : OBFUSCATEDPASSWORDS
@@ -283,7 +289,7 @@ TEMPLATENAME = "General_Purpose.dbc"
 # Default value : None
 # Mandatory     : Yes
 #-----------------------------------------------------------------------------
-SYSPASSWORD = {{ oracle_pass_all_users }}
+sysPassword={{ oracle_pass_all_users }}
 
 #-----------------------------------------------------------------------------
 # Name          : SYSTEMPASSWORD
@@ -293,7 +299,7 @@ SYSPASSWORD = {{ oracle_pass_all_users }}
 # Default value : None
 # Mandatory     : Yes
 #-----------------------------------------------------------------------------
-SYSTEMPASSWORD = {{ oracle_pass_all_users }}
+systemPassword={{ oracle_pass_all_users }}
 
 #-----------------------------------------------------------------------------
 # Name          : SERVICEUSERPASSWORD
@@ -302,7 +308,7 @@ SYSTEMPASSWORD = {{ oracle_pass_all_users }}
 # Default value : None
 # Mandatory     : If Oracle home is installed with windows service user
 #-----------------------------------------------------------------------------
-#SERVICEUSERPASSWORD = "password"
+oracleHomeUserPassword="password"
 
 #-----------------------------------------------------------------------------
 # Name          : EMCONFIGURATION
@@ -312,7 +318,7 @@ SYSTEMPASSWORD = {{ oracle_pass_all_users }}
 # Default value : NONE
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-EMCONFIGURATION = DBEXPRESS
+emConfiguration=DBEXPRESS
 
 
 #-----------------------------------------------------------------------------
@@ -324,7 +330,7 @@ EMCONFIGURATION = DBEXPRESS
 # Mandatory     : No, will be picked up from DBEXPRESS_HTTPS_PORT env variable
 #                 or auto generates a free port between 5500 and 5599
 #-----------------------------------------------------------------------------
-EMEXPRESSPORT = "5500"
+emExpressPort=5500
 
 
 #-----------------------------------------------------------------------------
@@ -336,7 +342,7 @@ EMEXPRESSPORT = "5500"
 # Default value : FALSE
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-#RUNCVUCHECKS = FALSE
+runCVUChecks=
 
 #-----------------------------------------------------------------------------
 # Name          : DBSNMPPASSWORD
@@ -347,7 +353,7 @@ EMEXPRESSPORT = "5500"
 # Mandatory     : Yes, if EMCONFIGURATION is specified or
 #                 the value of RUNCVUCHECKS is TRUE
 #-----------------------------------------------------------------------------
-#DBSNMPPASSWORD = "password"
+dbsnmpPassword="password"
 
 #-----------------------------------------------------------------------------
 # Name          : OMSHOST
@@ -356,7 +362,7 @@ EMEXPRESSPORT = "5500"
 # Default value : None
 # Mandatory     : Yes, if CENTRAL is specified for EMCONFIGURATION
 #-----------------------------------------------------------------------------
-#OMSHOST = 
+omsHost=
 
 #-----------------------------------------------------------------------------
 # Name          : OMSPORT
@@ -365,7 +371,7 @@ EMEXPRESSPORT = "5500"
 # Default value : None
 # Mandatory     : Yes, if CENTRAL is specified for EMCONFIGURATION
 #-----------------------------------------------------------------------------
-#OMSPORT = 
+omsPort=
 
 #-----------------------------------------------------------------------------
 # Name          : EMUSER
@@ -374,7 +380,7 @@ EMEXPRESSPORT = "5500"
 # Default value : None
 # Mandatory     : Yes, if CENTRAL is specified for EMCONFIGURATION
 #-----------------------------------------------------------------------------
-#EMUSER = 
+emUser=
 
 #-----------------------------------------------------------------------------
 # Name          : EMPASSWORD
@@ -383,7 +389,7 @@ EMEXPRESSPORT = "5500"
 # Default value : None
 # Mandatory     : Yes, if CENTRAL is specified for EMCONFIGURATION
 #-----------------------------------------------------------------------------
-#EMPASSWORD= 
+emPassword=
 
 
 #-----------------------------------------------------------------------------
@@ -394,7 +400,7 @@ EMEXPRESSPORT = "5500"
 # Default value : False
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-DVCONFIGURATION = "True"
+dvConfiguration="True"
 
 #-----------------------------------------------------------------------------
 # Name          : DVOWNERNAME
@@ -404,7 +410,7 @@ DVCONFIGURATION = "True"
 # Default value : None
 # Mandatory     : Yes, if DataVault option is chosen
 #-----------------------------------------------------------------------------
-DVOWNERNAME = "dvsys"
+dvUserName="dvsys"
 
 #-----------------------------------------------------------------------------
 # Name          : DVOWNERPASSWORD
@@ -414,7 +420,7 @@ DVOWNERNAME = "dvsys"
 # Default value : None
 # Mandatory     : Yes, if DataVault option is chosen
 #-----------------------------------------------------------------------------
-DVOWNERPASSWORD = {{ oracle_pass_all_users }}
+dvUserPassword={{ oracle_pass_all_users }}
 
 #-----------------------------------------------------------------------------
 # Name          : DVACCOUNTMANAGERNAME
@@ -424,7 +430,7 @@ DVOWNERPASSWORD = {{ oracle_pass_all_users }}
 # Default value : None
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-DVACCOUNTMANAGERNAME = "dvmanager"
+dvAccountManagerName="dvmanager"
 
 #-----------------------------------------------------------------------------
 # Name          : DVACCOUNTMANAGERPASSWORD
@@ -434,7 +440,7 @@ DVACCOUNTMANAGERNAME = "dvmanager"
 # Default value : None
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-DVACCOUNTMANAGERPASSWORD = {{ oracle_pass_all_users }}
+dvAccountManagerPassword={{ oracle_pass_all_users }}
 
 #-----------------------------------------------------------------------------
 # Name          : OLSCONFIGURATION
@@ -444,7 +450,7 @@ DVACCOUNTMANAGERPASSWORD = {{ oracle_pass_all_users }}
 # Default value : False
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-#OLSCONFIGURATION = "false"
+olsConfiguration="false"
 
 #-----------------------------------------------------------------------------
 # Name          : DATAFILEJARLOCATION 
@@ -454,7 +460,7 @@ DVACCOUNTMANAGERPASSWORD = {{ oracle_pass_all_users }}
 # Default value : None
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-#DATAFILEJARLOCATION =
+datafileJarLocation=
 
 #-----------------------------------------------------------------------------
 # Name          : DATAFILEDESTINATION 
@@ -464,7 +470,7 @@ DVACCOUNTMANAGERPASSWORD = {{ oracle_pass_all_users }}
 # Default value : $ORACLE_BASE/oradata
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-DATAFILEDESTINATION = {{ oracle_dataloc }}
+datafileDestination={{ oracle_dataloc }}
 
 #-----------------------------------------------------------------------------
 # Name          : RECOVERYAREADESTINATION
@@ -474,7 +480,7 @@ DATAFILEDESTINATION = {{ oracle_dataloc }}
 # Default value : $ORACLE_BASE/flash_recovery_area
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-RECOVERYAREADESTINATION= {{ oracle_recoveryloc }}
+recoveryAreaDestination={{ oracle_recoveryloc }}
 
 #-----------------------------------------------------------------------------
 # Name          : STORAGETYPE
@@ -484,7 +490,7 @@ RECOVERYAREADESTINATION= {{ oracle_recoveryloc }}
 # Default value : FS
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-#STORAGETYPE=FS
+storageType=
 
 #-----------------------------------------------------------------------------
 # Name          : DISKGROUPNAME
@@ -493,7 +499,7 @@ RECOVERYAREADESTINATION= {{ oracle_recoveryloc }}
 # Default value : DATA
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-#DISKGROUPNAME=DATA
+diskGroupName=
 
 #-----------------------------------------------------------------------------
 # Name          : ASMSNMP_PASSWORD
@@ -502,7 +508,7 @@ RECOVERYAREADESTINATION= {{ oracle_recoveryloc }}
 # Default value : None
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-#ASMSNMP_PASSWORD=""
+asmsnmpPassword=
 
 #-----------------------------------------------------------------------------
 # Name          : RECOVERYGROUPNAME
@@ -511,7 +517,7 @@ RECOVERYAREADESTINATION= {{ oracle_recoveryloc }}
 # Default value : RECOVERY
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-#RECOVERYGROUPNAME=RECOVERY
+recoveryGroupName=
 
 
 #-----------------------------------------------------------------------------
@@ -522,7 +528,7 @@ RECOVERYAREADESTINATION= {{ oracle_recoveryloc }}
 # Default value : "US7ASCII"
 # Mandatory     : NO
 #-----------------------------------------------------------------------------
-CHARACTERSET = {{ oracle_charset }}
+characterSet={{ oracle_charset }}
 
 #-----------------------------------------------------------------------------
 # Name          : NATIONALCHARACTERSET
@@ -532,7 +538,7 @@ CHARACTERSET = {{ oracle_charset }}
 # Default value : "AL16UTF16"
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-NATIONALCHARACTERSET= "UTF8"
+nationalCharacterSet="UTF8"
 
 #-----------------------------------------------------------------------------
 # Name          : REGISTERWITHDIRSERVICE
@@ -542,7 +548,7 @@ NATIONALCHARACTERSET= "UTF8"
 # Default value : FALSE
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-#REGISTERWITHDIRSERVICE= TRUE
+registerWithDirService=
 
 #-----------------------------------------------------------------------------
 # Name          : DIRSERVICEUSERNAME
@@ -550,7 +556,7 @@ NATIONALCHARACTERSET= "UTF8"
 # Description   : Specifies the name of the directory service user
 # Mandatory     : YES, if the value of registerWithDirService is TRUE
 #-----------------------------------------------------------------------------
-#DIRSERVICEUSERNAME= "name"
+dirServiceUserName=
 
 #-----------------------------------------------------------------------------
 # Name          : DIRSERVICEPASSWORD
@@ -559,7 +565,7 @@ NATIONALCHARACTERSET= "UTF8"
 #		  You can also specify the password at the command prompt instead of here.
 # Mandatory     : YES, if the value of registerWithDirService is TRUE
 #-----------------------------------------------------------------------------
-#DIRSERVICEPASSWORD= "password"
+dirServicePassword=
 
 #-----------------------------------------------------------------------------
 # Name          : WALLETPASSWORD
@@ -568,7 +574,7 @@ NATIONALCHARACTERSET= "UTF8"
 #		  You can also specify the password at the command prompt instead of here.
 # Mandatory     : YES, if the value of registerWithDirService is TRUE
 #-----------------------------------------------------------------------------
-WALLETPASSWORD= {{ oracle_pass_all_users }}
+walletPassword={{ oracle_pass_all_users }}
 
 #-----------------------------------------------------------------------------
 # Name          : LISTENERS
@@ -579,7 +585,7 @@ WALLETPASSWORD= {{ oracle_pass_all_users }}
 # Valid values  : The list should be comma separated like "listener1,listener2".
 # Mandatory     : NO
 #-----------------------------------------------------------------------------
-#LISTENERS = "listener1,listener2"
+listeners=
 
 #-----------------------------------------------------------------------------
 # Name          : VARIABLESFILE 
@@ -590,7 +596,7 @@ WALLETPASSWORD= {{ oracle_pass_all_users }}
 # Default value : None
 # Mandatory     : NO
 #-----------------------------------------------------------------------------
-#VARIABLESFILE =
+variablesFile=
 
 #-----------------------------------------------------------------------------
 # Name          : VARIABLES
@@ -599,7 +605,7 @@ WALLETPASSWORD= {{ oracle_pass_all_users }}
 # Default value : None
 # Mandatory     : NO
 #-----------------------------------------------------------------------------
-#VARIABLES =
+variables=
 
 #-----------------------------------------------------------------------------
 # Name          : INITPARAMS
@@ -608,7 +614,7 @@ WALLETPASSWORD= {{ oracle_pass_all_users }}
 # Default value : None
 # Mandatory     : NO
 #-----------------------------------------------------------------------------
-#INITPARAMS =
+initParams=
 
 #-----------------------------------------------------------------------------
 # Name          : SAMPLESCHEMA
@@ -618,7 +624,7 @@ WALLETPASSWORD= {{ oracle_pass_all_users }}
 # Default value : FASLE
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-SAMPLESCHEMA={{ oracle_install_samples }}
+sampleSchema={{ oracle_install_samples }}
 
 #-----------------------------------------------------------------------------
 # Name          : MEMORYPERCENTAGE
@@ -627,7 +633,7 @@ SAMPLESCHEMA={{ oracle_install_samples }}
 # Default value : None
 # Mandatory     : NO
 #-----------------------------------------------------------------------------
-MEMORYPERCENTAGE = "80"
+memoryPercentage = "80"
 
 #-----------------------------------------------------------------------------
 # Name          : DATABASETYPE
@@ -637,7 +643,7 @@ MEMORYPERCENTAGE = "80"
 # Default value : MULTIPURPOSE
 # Mandatory     : NO
 #-----------------------------------------------------------------------------
-#DATABASETYPE = "MULTIPURPOSE"
+databaseType=
 
 #-----------------------------------------------------------------------------
 # Name          : AUTOMATICMEMORYMANAGEMENT
@@ -647,7 +653,7 @@ MEMORYPERCENTAGE = "80"
 # Default value : TRUE
 # Mandatory     : NO
 #-----------------------------------------------------------------------------
-AUTOMATICMEMORYMANAGEMENT = "FALSE"
+automaticMemoryManagement="FALSE"
 
 #-----------------------------------------------------------------------------
 # Name          : TOTALMEMORY
@@ -657,7 +663,7 @@ AUTOMATICMEMORYMANAGEMENT = "FALSE"
 # Default value : 
 # Mandatory     : NO
 #-----------------------------------------------------------------------------
-TOTALMEMORY = {{ oracle_memory_mb }}
+totalMemory={{ oracle_memory_mb }}
 
 
 #-----------------------*** End of CREATEDATABASE section ***------------------------
