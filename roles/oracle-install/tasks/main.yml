@@ -19,11 +19,17 @@
 #   copy: src={{ item }} dest='{{ installation_folder }}/ remote_src=yes'
 #   with_items: '{{ installer_archives }}'
 
-# ==> extract files
-- name: Extract installation files
-  command: 'unzip {{ installation_folder }}/{{ item }} -d {{ installation_folder }}/'
-  with_items: '{{ installer_archives }}'
+# # ==> extract files
+# - name: Extract installation files
+#   command: 'unzip {{ installation_folder }}/{{ item }} -d {{ installation_folder }}/'
+#   with_items: '{{ installer_archives }}'
 
+- name: Extract installation files
+  unarchive:
+    src: "{{ installation_folder }}/{{ item }}"
+    dest: "{{ installation_folder }}/"
+    creates: "{{ installation_folder }}/database"
+  with_items: '{{ installer_archives }}'
 # ==> generate response file
 - name: Generate the response file for software only installation
   template: src=db_install.rsp.j2 dest={{ installation_folder }}/db_install.rsp
