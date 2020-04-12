@@ -132,7 +132,7 @@ oracle.install.db.OPER_GROUP={{ oracle_oper_group }}
 #------------------------------------------------------------------------------
 # The BACKUPDBA_GROUP is the OS group which is to be granted OSBACKUPDBA privileges.
 #------------------------------------------------------------------------------
-oracle.install.db.BACKUPDBA_GROUP={{ oracle_dba_group }}
+oracle.install.db.OSBACKUPDBA_GROUP={{ dba_group }}
 
 #------------------------------------------------------------------------------
 # The DGDBA_GROUP is the OS group which is to be granted OSDGDBA privileges.
@@ -238,7 +238,7 @@ oracle.install.db.ConfigureAsContainerDB={{ oracle_conf_as_container_db }}
 #-------------------------------------------------------------------------------
 # Specify the  Pluggable Database name for the pluggable database in Container Database.
 #-------------------------------------------------------------------------------
-oracle.install.db.config.PDBName={{ oracle_pdb_name }}
+oracle.install.db.config.PDBName=
 
 #-------------------------------------------------------------------------------
 # Specify the Starter Database character set.

@@ -11,12 +11,12 @@ installer_archives:
 
 oracle_install_version: '12201'
 dbhome_name: 'dbhome_1'
-oracle_edition: 'EE'
+oracle_edition: 'SE2'
 oracle_dba_group: dba
 oracle_oper_group: oper
 oracle_database_type: 'GENERAL_PURPOSE'
 oracle_globalname: 'orcl.oradb'
-oracle_sid: 'sasdb'
+oracle_sid: 'orcl'
 create_container_database: 'false'
 number_of_pdbs: 0
 oracle_conf_as_container_db: 'false'
