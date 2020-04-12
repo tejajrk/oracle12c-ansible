@@ -35,10 +35,17 @@
 - name: Generate the response file for software only installation
   template: src=db_install.rsp.j2 dest={{ installation_folder }}/db_install.rsp
 
+# ==> Check if DB is already installed
+
+- name: Check if DB exists
+  stat:
+    path: "{{ oracle_home }}"
+  register: stat_result
+
 # ==> execute installation
 - name: Install Product
   command: '{{ installation_folder }}/database/runInstaller -silent -ignorePrereq -ignoreSysPrereqs -waitforcompletion -responseFile {{ installation_folder }}/db_install.rsp '
-
+  when: not stat_result.stat.exists
 # ==> execute Inventory command as root
 - name: Execute Inventoty root command
   command: '{{ inventory_location }}/orainstRoot.sh'
