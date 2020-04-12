@@ -119,7 +119,6 @@ oracle.install.db.InstallEdition={{ oracle_edition }}
 ###############################################################################
 
 #------------------------------------------------------------------------------
-# The DBA_GROUP is the OS group which is to be granted OSDBA privileges.
 #-------------------------------------------------------------------------------
 oracle.install.db.DBA_GROUP={{ oracle_dba_group }}
 
@@ -476,3 +475,8 @@ PROXY_PWD=
 # Example    : COLLECTOR_SUPPORTHUB_URL=https://orasupporthub.company.com:8080/
 #------------------------------------------------------------------------------
 COLLECTOR_SUPPORTHUB_URL=
+
+
+oracle.install.db.BACKUPDBA_GROUP=oinstall
+oracle.install.db.DGDBA_GROUP=oinstall
+oracle.install.db.KMDBA_GROUP=oinstall
