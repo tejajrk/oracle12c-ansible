@@ -7,9 +7,17 @@
 - name: Create folder for installation files
   file: state=directory path={{ installation_folder }}
 # ==> Copy installer files
-- name: Copy installer files
-  copy: src={{ item }} dest='{{ installation_folder }}/ remote=yes'
+
+- name: copy binary
+  copy:
+    src: "{{ item }}"
+    dest: "{{ installation_folder }}/ remote_src=yes"
+    remote_src: yes
   with_items: '{{ installer_archives }}'
+
+# - name: Copy installer files
+#   copy: src={{ item }} dest='{{ installation_folder }}/ remote_src=yes'
+#   with_items: '{{ installer_archives }}'
 
 # ==> extract files
 - name: Extract installation files
